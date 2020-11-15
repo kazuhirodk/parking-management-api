@@ -8,5 +8,4 @@ AllCops:
   Exclude:
     - db/**
     - config/**
-    - script/**
     - bin/**
