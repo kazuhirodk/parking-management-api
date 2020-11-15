@@ -1,6 +1,6 @@
 name: CI RSpec Tests
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
@@ -11,7 +11,13 @@ jobs:
       postgres:
         image: postgres:13.1-alpine
         ports: ['5432:5432']
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v1
@@ -28,14 +34,14 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Setup Database
         env:
-          RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
-        run: bin/rails db:create db:schema:load
+          RAILS_ENV: test
+        run: bin/rails db:create db:migrate
 
       - name: Build and test with rspec
         env:
-          RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
+          RAILS_ENV: test
         run: bundle exec rspec spec
