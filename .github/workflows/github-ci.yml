@@ -4,7 +4,7 @@ env:
   POSTGRES_PASSWORD: postgres
   PGHOST: localhost
 
-name: Rails tests (lint & rspec)
+name: Github CI - Linter & RSpec
 on: [push]
 
 jobs:
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
-      - name: Install postgres client
+      - name: Install PostgreSQL
         run: sudo apt-get install libpq-dev
       - name: Install dependencies
         run: |
@@ -50,11 +50,5 @@ jobs:
         run: |
           bundler exec rails db:create RAILS_ENV=test
           bundler exec rails db:migrate RAILS_ENV=test
-      - name: Run tests
-        run: bundler exec rake
-      - name: Upload coverage results
-        uses: actions/upload-artifact@master
-        if: always()
-        with:
-          name: coverage-report
-          path: coverage
+      - name: Run RSpec
+        run: bunde exec rspec
