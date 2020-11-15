@@ -13,8 +13,6 @@ jobs:
         ports: ['5432:5432']
         env:
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: db
-          POSTGRES_HOST_AUTH_METHOD: trust
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -38,16 +36,12 @@ jobs:
         env:
           PGHOST: localhost
           PGUSER: postgres
-          POSTGRES_DB: db
-          POSTGRES_HOST_AUTH_METHOD: trust
           RAILS_ENV: test
-        run: bin/rails db:create db:schema:load
+        run: bin/rails db:create db:migrate
 
       - name: Build and test with rspec
         env:
           PGHOST: localhost
           PGUSER: postgres
-          POSTGRES_DB: db
-          POSTGRES_HOST_AUTH_METHOD: trust
           RAILS_ENV: test
         run: bundle exec rspec spec

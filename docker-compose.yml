@@ -6,9 +6,6 @@ services:
     image: postgres:13.1-alpine
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: db
-      POSTGRES_HOST_AUTH_METHOD: trust
     networks:
       - app-network
   app:
