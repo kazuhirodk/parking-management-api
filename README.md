@@ -16,7 +16,7 @@ Configuration instructions for running the project locally are available [here](
 
 ## API Endpoints
 
-### Incoming
+### Entrance
 
 #### Request
 ```
@@ -27,7 +27,7 @@ POST /parking
 #### Response
 Must return a "booking reference number" and validate **AAA-9999** mask
 
-### Outgoing
+### Exit
 
 #### Request
 ```
