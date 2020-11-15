@@ -1,9 +1,9 @@
 env:
   RUBY_VERSION: 2.7.2
-  POSTGRES_USER: 'postgres'
-  POSTGRES_PASSWORD: 'postgres'
-  POSTGRES_PORT: '5432'
-  POSTGRES_HOST: 'db'
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_PORT: 5432
+  POSTGRES_HOST: postgres
 
 name: Github CI - Linter & RSpec
 on: [push]
@@ -36,6 +36,7 @@ jobs:
           POSTGRES_USER: ${{ env.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
           POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
+          POSTGRES_HOST_AUTH_METHOD: trust
           RAILS_ENV: test
         options: >-
           --health-cmd pg_isready
@@ -62,6 +63,7 @@ jobs:
           POSTGRES_USER: ${{ env.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
           POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
+          POSTGRES_HOST_AUTH_METHOD: trust
           RAILS_ENV: test
       - name: Run RSpec
         run: bundle exec rspec
