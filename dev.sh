@@ -77,8 +77,8 @@ function dka {
 }
 
 function dbsetup {
-  docker-compose run app rake db:create
-  docker-compose run app rake db:migrate
+  docker-compose run app bundle exec rails db:create RAILS_ENV=development
+  docker-compose run app bundle exec rails db:migrate RAILS_ENV=development
   exitcode=$?
   return $exitcode
 }
