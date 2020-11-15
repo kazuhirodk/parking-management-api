@@ -3,7 +3,7 @@ env:
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_PORT: 5432
-  POSTGRES_HOST: db
+  POSTGRES_HOST: postgres
 
 name: Github CI - Linter & RSpec
 on: [push]
@@ -48,7 +48,7 @@ jobs:
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
       - name: Install PostgreSQL
-        run: sudo apt-get install libpq-dev
+        run: sudo apt-get -yqq install libpq-dev
       - name: Install dependencies
         run: |
           gem install bundler
