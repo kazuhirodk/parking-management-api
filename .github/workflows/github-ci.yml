@@ -2,8 +2,7 @@ env:
   RUBY_VERSION: 2.7.2
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
-  POSTGRES_DB: postgres
-  PGHOST: localhost
+  PGHOST: db
 
 name: Github CI - Linter & RSpec
 on: [push]
@@ -37,10 +36,9 @@ jobs:
         ports:
         - 5432:5432
         env:
-          POSTGRES_USER: ${{ env.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ env.POSTGRES_DB }}
           PGHOST: ${{ env.PGHOST }}
+          PGUSER: ${{ env.POSTGRES_USER }}
+          PGPASSWORD: ${{ env.POSTGRES_PASSWORD }}
           RAILS_ENV: test
     steps:
       - uses: actions/checkout@v1
