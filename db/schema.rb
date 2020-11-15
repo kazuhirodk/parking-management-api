@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2020_11_15_103042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "parking", force: :cascade do |t|
+    t.datetime "entrance_date"
+    t.datetime "exit_date"
+    t.datetime "payment_date"
+    t.bigint "vehicle_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["vehicle_id"], name: "index_parking_on_vehicle_id"
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.string "plate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "parking", "vehicles"
 end

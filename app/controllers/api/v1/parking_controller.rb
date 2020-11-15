@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'pry'
 
 module Api
-	module V1
-		class ParkingController < ApplicationController
+  module V1
+    class ParkingController < ApplicationController
       def index
-        parking = Parking.order('created_at');
+        parking = Parking.order('created_at')
         render json: { data: parking }, status: :ok
       end
 
@@ -13,17 +15,19 @@ module Api
 
         vehicle = Vehicle.find_or_create_by(vehicle_params)
 
+        parking_ticket = Parking.create(
+          entrance_date: Time.current,
+          vehicle_id: vehicle.id
+        )
 
-        binding.pry
-
-        render json: { data: [] }, status: :ok
+        render json: { booking_reference_number: parking_ticket.id }, status: :ok
       end
 
       private
 
       def vehicle_params
-        params.require(:parking).permit(:plate)
+        params.permit(:plate)
       end
-		end
-	end
+    end
+  end
 end
