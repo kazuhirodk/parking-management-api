@@ -1,9 +1,9 @@
 env:
   RUBY_VERSION: 2.7.2
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
-  POSTGRES_DB: postgres
-  PGHOST: db
+  # POSTGRES_USER: postgres
+  # POSTGRES_PASSWORD: postgres
+  # POSTGRES_DB: postgres
+  # PGHOST: db
 
 name: Github CI - Linter & RSpec
 on: [push]
@@ -37,10 +37,10 @@ jobs:
         ports:
         - 5432:5432
         env:
-          PGHOST: ${{ env.PGHOST }}
-          PGUSER: ${{ env.POSTGRES_USER }}
-          PGPASSWORD: ${{ env.POSTGRES_PASSWORD }}
-          PGDATABASE: ${{ env.POSTGRES_DB }}
+          # PGHOST: ${{ env.PGHOST }}
+          # PGUSER: ${{ env.POSTGRES_USER }}
+          # PGPASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          # PGDATABASE: ${{ env.POSTGRES_DB }}
           RAILS_ENV: test
     steps:
       - uses: actions/checkout@v1
@@ -48,7 +48,7 @@ jobs:
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
       - name: Install PostgreSQL
-        run: sudo apt-get install libpq-dev
+        run: apt-get update -qq && apt-get install -y build-essential libpq-dev
       - name: Install dependencies
         run: |
           gem install bundler
