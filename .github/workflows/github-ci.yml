@@ -1,8 +1,9 @@
 env:
   RUBY_VERSION: 2.7.2
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
-  POSTGRES_PORT: 5432
+  # POSTGRES_USER: postgres
+  # POSTGRES_PASSWORD: postgres
+  # POSTGRES_PORT: 5432
+  # POSTGRES_HOST: postgres
 
 name: Github CI - Linter & RSpec
 on: [push]
@@ -27,20 +28,15 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:13.1-alpine
-        ports:
-          - 5432:5432
+        image: postgres:13.1
         env:
-          POSTGRES_USER: ${{ env.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
-          POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
-          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
           RAILS_ENV: test
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        ports:
+        - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-ruby@v1
@@ -57,10 +53,8 @@ jobs:
           bundle exec rails db:create
           bundle exec rails db:migrate
         env:
-          POSTGRES_USER: ${{ env.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
-          POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
-          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
           RAILS_ENV: test
       - name: Run RSpec
         run: bundle exec rspec
