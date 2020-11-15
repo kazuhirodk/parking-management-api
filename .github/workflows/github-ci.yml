@@ -45,8 +45,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: ${{ env.RUBY_VERSION }}
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
       - name: Install PostgreSQL
         run: apt-get update -qq && apt-get install -y build-essential libpq-dev
       - name: Install dependencies
