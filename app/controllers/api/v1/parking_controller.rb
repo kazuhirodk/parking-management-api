@@ -4,7 +4,7 @@ module Api
 	module V1
 		class ParkingController < ApplicationController
       def index
-        parking = ParkingTicket.order('created_at');
+        parking = Parking.order('created_at');
         render json: { data: parking }, status: :ok
       end
 
@@ -12,6 +12,7 @@ module Api
         # validate_plate(vehicle_params[:plate])
 
         vehicle = Vehicle.find_or_create_by(vehicle_params)
+
 
         binding.pry
 
