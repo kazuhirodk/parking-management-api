@@ -1,24 +1,55 @@
-# README
+# Parking Management API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Ruby on Rails project that implements a parking flow management.
 
-Things you may want to cover:
+## Documentation
 
-* Ruby version
+### Technologies
 
-* System dependencies
+**Ruby** 2.7.2 \
+**Rails** 6.0.3 \
+**PostgreSQL** 13.1
 
-* Configuration
 
-* Database creation
+### Project setup
+Configuration instructions for running the project locally are available [here](INSTALL.md)
 
-* Database initialization
+## API Endpoints
 
-* How to run the test suite
+### Incoming
 
-* Services (job queues, cache servers, search engines, etc.)
+#### Request
+```
+POST /parking
 
-* Deployment instructions
+{ plate: 'FAA-1234' }
+```
+#### Response
+Must return a "booking reference number" and validate **AAA-9999** mask
 
-* ...
+### Outgoing
+
+#### Request
+```
+PUT /parking/:id/out
+```
+
+### Payment
+
+#### Request
+```
+PUT /parking/:id/pay
+```
+
+### History
+
+#### Request
+```
+GET /parking/:plate
+```
+#### Response
+```
+[
+  { id: 42, time: '25 minutes', paid: true, left: false }
+]
+```
