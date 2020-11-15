@@ -2,9 +2,6 @@ require: rubocop-rails
 
 AllCops:
   NewCops: enable
-  Include:
-    - Rakefile
-    - config.ru
   Exclude:
     - db/**
     - config/**
