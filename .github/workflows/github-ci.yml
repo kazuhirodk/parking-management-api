@@ -2,6 +2,7 @@ env:
   RUBY_VERSION: 2.7.2
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: parking_management_api_test
   PGHOST: db
 
 name: Github CI - Linter & RSpec
@@ -39,6 +40,7 @@ jobs:
           PGHOST: ${{ env.PGHOST }}
           PGUSER: ${{ env.POSTGRES_USER }}
           PGPASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          PGDATABASE: ${{ env.POSTGRES_DB }}
           RAILS_ENV: test
     steps:
       - uses: actions/checkout@v1
