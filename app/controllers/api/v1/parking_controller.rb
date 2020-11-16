@@ -3,13 +3,14 @@
 module Api
   module V1
     class ParkingController < ApplicationController
-      def index
-        parking = Parking.order('created_at')
-        render json: { data: parking }, status: :ok
-      end
-
       def create
-        # validate_plate(vehicle_params[:plate])
+        regex_match = vehicle_params[:plate] =~ /[A-Z]{3}-[0-9]{4}/
+
+        if regex_match.nil?
+          render json: {
+            message: 'Invalid plate format. Use AAA-9999 pattern.'
+          }, status: :bad_request and return
+        end
 
         vehicle = Vehicle.find_or_create_by(vehicle_params)
 
