@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 module Api
   module V1
     class ParkingController < ApplicationController
@@ -21,6 +19,28 @@ module Api
         )
 
         render json: { booking_reference_number: parking_ticket.id }, status: :ok
+      end
+
+      def exit_parking
+        parking = Parking.find_by(id: params[:id])
+
+        if parking.blank?
+          render json: {
+            response: 'Inform a valid booking reference number.'
+          }, status: :not_found and return
+        end
+
+        unless parking.paid?
+          render json: {
+            response: 'Payment required',
+            data: parking
+          }, status: :payment_required and return
+        end
+
+        render json: {
+          response: 'Vehicle has left successfully',
+          data: parking
+        }, status: :ok
       end
 
       private

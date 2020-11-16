@@ -7,4 +7,12 @@ class Parking < ApplicationRecord
   validates :vehicle_id, presence: true
 
   belongs_to :vehicle
+
+  def paid?
+    payment_date.present?
+  end
+
+  def vehicle_has_left?
+    exit_date.present?
+  end
 end
