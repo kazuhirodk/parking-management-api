@@ -37,8 +37,39 @@ module Api
           }, status: :payment_required and return
         end
 
+        if parking.exit_date.present?
+          render json: {
+            response: 'Vehicle already left parking'
+          }, status: :method_not_allowed and return
+        end
+
+        parking.update(exit_date: Time.current)
+
         render json: {
           response: 'Vehicle has left successfully',
+          data: parking
+        }, status: :ok
+      end
+
+      def pay_parking
+        parking = Parking.find_by(id: params[:id])
+
+        if parking.blank?
+          render json: {
+            response: 'Inform a valid booking reference number.'
+          }, status: :not_found and return
+        end
+
+        if parking.payment_date.present?
+          render json: {
+            response: 'Parking ticket has already paid'
+          }, status: :method_not_allowed and return
+        end
+
+        parking.update(payment_date: Time.current)
+
+        render json: {
+          response: 'Parking ticket has paid successfully',
           data: parking
         }, status: :ok
       end
