@@ -3,7 +3,7 @@
 module Api
   module V1
     class ParkingController < ApplicationController
-      def create
+      def enter_parking
         response = ParkingEntranceService.new(vehicle_params).enter_parking
 
         render_json(
