@@ -86,8 +86,10 @@ function dka {
 }
 
 function dbsetup {
-  docker-compose run app bundle exec rails db:create RAILS_ENV=development
-  docker-compose run app bundle exec rails db:migrate RAILS_ENV=development
+  rm_server_pid
+  docker-compose up -d
+  docker exec -it parking_management_app bundle exec rails db:create
+  docker exec -it parking_management_app bundle exec rails db:migrate
   exitcode=$?
   return $exitcode
 }
