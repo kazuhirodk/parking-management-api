@@ -11,13 +11,9 @@ Run helper script
 ```
 source dev.sh
 ```
-Build the project
+Build the project and create database
 ```
-dkbuild
-```
-Create databases and run migrations
-```
-dbsetup
+dksetup
 ```
 Run application
 ```

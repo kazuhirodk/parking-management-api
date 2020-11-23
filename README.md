@@ -53,3 +53,8 @@ GET /api/v1/parking/:plate
   { id: 42, time: '25 minutes', paid: true, left: false }
 ]
 ```
+### Run specs
+```
+source dev.sh
+dkexec rspec
+```

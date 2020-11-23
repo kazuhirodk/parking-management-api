@@ -10,6 +10,8 @@ function devhelp {
     echo -e ""
     echo -e "${GREEN}devhelp${RESTORE}                Print this ${RED}helper${RESTORE}"
     echo -e ""
+    echo -e "${GREEN}dksetup${RESTORE}                ${RED}INSTALL DOCKER PROJECT${RESTORE} and create databases"
+    echo -e ""
     echo -e "${GREEN}dkbuild${RESTORE}                ${RED}Create docker image${RESTORE} from project"
     echo -e ""
     echo -e "${GREEN}dbsetup${RESTORE}                ${RED}Create databases${RESTORE} and run migrations"
@@ -30,6 +32,13 @@ function devhelp {
     echo -e ""
     echo -e "${GREEN}dkdown${RESTORE}                 ${RED}Stop${RESTORE} all project containers"
     echo -e ""
+}
+
+function dksetup {
+  dkbuild
+  dbsetup
+  exitcode=$?
+  return $exitcode
 }
 
 function dkbuild {
