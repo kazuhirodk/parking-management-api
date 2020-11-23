@@ -5,7 +5,7 @@ class Parking < ApplicationRecord
 
   enum status: { initiated: 0, paid: 1, left: 2 }
 
-  validates_presence_of :entrance_date, :vehicle_id, :status
+  validates :entrance_date, :vehicle_id, :status, presence: true
 
   belongs_to :vehicle
 

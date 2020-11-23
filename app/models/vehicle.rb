@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Vehicle < ApplicationRecord
-  validates_presence_of :plate
+  validates :plate, presence: true
 
   has_many :parking, dependent: :destroy
 end

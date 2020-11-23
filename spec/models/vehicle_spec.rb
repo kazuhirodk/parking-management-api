@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe Vehicle, type: :model do
-  subject {
+  subject do
     described_class.new(
       plate: 'MLB-2020'
     )
-  }
+  end
 
   describe 'Validations' do
     it 'is valid with valid attributes' do
