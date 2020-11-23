@@ -3,16 +3,11 @@
 class Parking < ApplicationRecord
   self.table_name = 'parking'
 
+  enum status: { initiated: 0, paid: 1, left: 2 }
+
   validates :entrance_date, presence: true
   validates :vehicle_id, presence: true
+  validates :status, presence: true
 
   belongs_to :vehicle
-
-  def paid?
-    payment_date.present?
-  end
-
-  def vehicle_has_left?
-    exit_date.present?
-  end
 end

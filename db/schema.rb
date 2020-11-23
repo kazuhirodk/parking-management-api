@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_103042) do
     t.datetime "entrance_date"
     t.datetime "exit_date"
     t.datetime "payment_date"
+    t.integer "status"
     t.bigint "vehicle_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
