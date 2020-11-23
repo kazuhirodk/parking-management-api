@@ -4,22 +4,16 @@ module Api
   module V1
     class ParkingController < ApplicationController
       def create
-        vehicle = CreateVehicleService.new(vehicle_params).create
+        response = ParkingEntranceService.new(vehicle_params).enter_parking
 
-        if vehicle.blank?
-          render_json(
-            'Invalid plate format. Use AAA-9999 pattern.',
-            :bad_request
-          ) and return
-        end
-
-        parking_ticket = CreateParkingService.new(vehicle.id).create
-
-        render_json({ ticket_number: parking_ticket.id }, :ok)
+        render_json(
+          { message: response[:message], data: response[:data] },
+          response[:http_status]
+        )
       end
 
       def left_parking
-        response = LeftParkingService.new(params[:id]).left_parking
+        response = ParkingExitService.new(params[:id]).left_parking
 
         render_json(
           { message: response[:message], data: response[:data] },
@@ -55,7 +49,7 @@ module Api
           parking_ticket = {
             id: parking.id,
             time: "#{parking_time_in_minutes} minutes",
-            paid: parking.paid?,
+            paid: parking.parking_paid?,
             left: parking.left?
           }
 

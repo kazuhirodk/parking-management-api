@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class LeftParkingService
+class ParkingExitService
   def initialize(parking_id)
     @parking = Parking.find_by(id: parking_id)
   end
 
   def left_parking
     return invalid_ticket_response if @parking.blank?
-    return payment_required_response unless @parking.paid?
+    return payment_required_response unless @parking.parking_paid?
     return vehicle_already_left_response if @parking.left?
 
     confirm_vehicle_exit
@@ -24,7 +24,7 @@ class LeftParkingService
 
   def invalid_ticket_response(data = {})
     {
-      message: 'Inform a valid booking reference number.',
+      message: 'Inform a valid ticket number.',
       data: data,
       http_status: :not_found
     }

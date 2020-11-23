@@ -7,7 +7,7 @@ class ParkingPaymentService
 
   def pay_parking
     return invalid_ticket_response if @parking.blank?
-    return ticket_already_paid_response if @parking.paid?
+    return ticket_already_paid_response if already_paid?
 
     confirm_ticket_payment
 
@@ -21,9 +21,13 @@ class ParkingPaymentService
     @parking.paid!
   end
 
+  def already_paid?
+    @parking.paid? || @parking.left?
+  end
+
   def invalid_ticket_response(data = {})
     {
-      message: 'Inform a valid booking reference number.',
+      message: 'Inform a valid ticket number.',
       data: data,
       http_status: :not_found
     }
@@ -31,7 +35,7 @@ class ParkingPaymentService
 
   def ticket_already_paid_response(data = {})
     {
-      message: 'Parking ticket has already paid.',
+      message: 'Parking ticket has already paid/validated.',
       data: data,
       http_status: :method_not_allowed
     }
