@@ -25,7 +25,7 @@ POST /api/v1/parking
 { plate: 'FAA-1234' }
 ```
 #### Response
-Must return a "booking reference number" and validate **AAA-9999** mask
+Must return a "ticket number" and validate **AAA-9999** mask
 
 ### Exit
 
