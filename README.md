@@ -20,7 +20,7 @@ Configuration instructions for running the project locally are available [here](
 
 #### Request
 ```
-POST /parking
+POST /api/v1/parking
 
 { plate: 'FAA-1234' }
 ```
@@ -31,21 +31,21 @@ Must return a "booking reference number" and validate **AAA-9999** mask
 
 #### Request
 ```
-PUT /parking/:id/out
+PUT /api/v1/parking/:id/out
 ```
 
 ### Payment
 
 #### Request
 ```
-PUT /parking/:id/pay
+PUT /api/v1/parking/:id/pay
 ```
 
 ### History
 
 #### Request
 ```
-GET /parking/:plate
+GET /api/v1/parking/:plate
 ```
 #### Response
 ```
