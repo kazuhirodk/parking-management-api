@@ -27,7 +27,7 @@ class ParkingEntranceService
     {
       message: 'Enter parking successfully.',
       data: data,
-      http_status: :ok
+      http_status: :created
     }
   end
 end

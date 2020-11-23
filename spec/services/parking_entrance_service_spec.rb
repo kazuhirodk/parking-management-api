@@ -61,7 +61,7 @@ RSpec.describe ParkingEntranceService, type: :service do
           {
             message: 'Enter parking successfully.',
             data: 'data test',
-            http_status: :ok
+            http_status: :created
           }
         )
       end
@@ -75,7 +75,7 @@ RSpec.describe ParkingEntranceService, type: :service do
           {
             message: 'Enter parking successfully.',
             data: {},
-            http_status: :ok
+            http_status: :created
           }
         )
       end
