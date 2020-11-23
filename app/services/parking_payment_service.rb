@@ -37,7 +37,7 @@ class ParkingPaymentService
     {
       message: 'Parking ticket has already paid/validated.',
       data: data,
-      http_status: :method_not_allowed
+      http_status: :accepted
     }
   end
 

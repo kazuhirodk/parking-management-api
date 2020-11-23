@@ -48,7 +48,7 @@ RSpec.describe ParkingExitService, type: :service do
     context 'when inform a already left parking' do
       let(:parking) { create(:parking) }
 
-      it 'should return :method_not_allowed when already left' do
+      it 'should return :accepted when already left' do
         parking.payment_date = Time.current
         parking.left!
 
@@ -128,7 +128,7 @@ RSpec.describe ParkingExitService, type: :service do
           {
             message: 'Vehicle already left parking.',
             data: 'data test',
-            http_status: :method_not_allowed
+            http_status: :accepted
           }
         )
       end
@@ -142,7 +142,7 @@ RSpec.describe ParkingExitService, type: :service do
           {
             message: 'Vehicle already left parking.',
             data: {},
-            http_status: :method_not_allowed
+            http_status: :accepted
           }
         )
       end

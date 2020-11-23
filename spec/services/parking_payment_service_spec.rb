@@ -34,7 +34,7 @@ RSpec.describe ParkingPaymentService, type: :service do
     context 'when inform a paid parking' do
       let(:parking) { create(:parking) }
 
-      it 'should return :method_not_allowed when already paid' do
+      it 'should return :accepted when already paid' do
         parking.paid!
 
         response = described_class.new(parking.id).pay_parking
@@ -140,7 +140,7 @@ RSpec.describe ParkingPaymentService, type: :service do
           {
             message: 'Parking ticket has already paid/validated.',
             data: 'data test',
-            http_status: :method_not_allowed
+            http_status: :accepted
           }
         )
       end
@@ -154,7 +154,7 @@ RSpec.describe ParkingPaymentService, type: :service do
           {
             message: 'Parking ticket has already paid/validated.',
             data: {},
-            http_status: :method_not_allowed
+            http_status: :accepted
           }
         )
       end
