@@ -183,6 +183,5 @@ RSpec.describe ParkingExitService, type: :service do
       end
     end
   end
-
 end
 # rubocop:enable Metrics/BlockLength

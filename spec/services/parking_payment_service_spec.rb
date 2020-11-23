@@ -195,6 +195,5 @@ RSpec.describe ParkingPaymentService, type: :service do
       end
     end
   end
-
 end
 # rubocop:enable Metrics/BlockLength
