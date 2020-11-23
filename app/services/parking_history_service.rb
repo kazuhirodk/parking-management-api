@@ -9,7 +9,7 @@ class ParkingHistoryService
   def full_history
     return invalid_vehicle_response if @vehicle.blank?
 
-    history_list
+    full_history_response(history_list)
   end
 
   private
@@ -26,7 +26,7 @@ class ParkingHistoryService
       @parking_history << JSON.parse(parking_ticket.to_json)
     end
 
-    full_history_response(@parking_history)
+    @parking_history
   end
 
   def get_ticket_time_in_minutes(parking)
