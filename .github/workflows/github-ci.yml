@@ -1,4 +1,4 @@
-name: Github CI - RSpec
+name: Github CI
 on: [push]
 
 jobs:
