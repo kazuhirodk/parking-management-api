@@ -87,7 +87,7 @@ function dka {
 
 function dbsetup {
   rm_server_pid
-  docker-compose up
+  docker-compose up -d
   docker exec -it parking_management_app bundle exec rails db:create
   docker exec -it parking_management_app bundle exec rails db:migrate
   exitcode=$?

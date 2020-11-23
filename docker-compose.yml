@@ -8,6 +8,9 @@ services:
       - ./tmp/db:/var/lib/postgresql/data
     networks:
       - app-network
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
   app:
     container_name: parking_management_app
     build: .
