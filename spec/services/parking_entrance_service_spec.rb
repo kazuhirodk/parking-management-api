@@ -32,6 +32,21 @@ RSpec.describe ParkingEntranceService, type: :service do
         expect(parking.count).to eq(2)
       end
     end
+
+    context 'when inform a invalid plate' do
+      it 'do not create vehicle or parking and return bad request response' do
+        response = described_class.new({ plate: 'abc-1234' }).enter_parking
+        vehicle = Vehicle.where(plate: 'abc-1234')
+        parking = Parking.all
+
+        expect(vehicle.count).to eq(0)
+        expect(parking.count).to eq(0)
+
+        expect(response).to eq(
+          described_class.new.send(:invalid_vehicle_response)
+        )
+      end
+    end
   end
 
   describe '#enter_successfully_response' do
