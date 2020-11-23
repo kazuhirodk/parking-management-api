@@ -27,7 +27,7 @@ class ParkingPaymentService
 
   def invalid_ticket_response(data = {})
     {
-      message: 'Inform a valid ticket number.',
+      message: 'Ticket not found. Inform a valid ticket number.',
       data: data,
       http_status: :not_found
     }

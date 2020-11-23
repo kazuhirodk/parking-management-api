@@ -31,32 +31,14 @@ module Api
       end
 
       def parking_history
-        vehicle = Vehicle.find_by(vehicle_params)
+        response = ParkingHistoryService.new(vehicle_params).full_history
 
-        if vehicle.blank?
-          render json: {
-            message: 'Inform a valid plate.'
-          }, status: :not_found and return
-        end
+        render_json(response[:data], response[:http_status]) and return if response[:http_status] == :ok
 
-        all_parking = vehicle.parking
-        parking_history = []
-
-        all_parking.each do |parking|
-          ticket_exit_date = parking.exit_date || Time.current
-          parking_time_in_minutes = ((ticket_exit_date - parking.entrance_date) / 60).to_int
-
-          parking_ticket = {
-            id: parking.id,
-            time: "#{parking_time_in_minutes} minutes",
-            paid: parking.parking_paid?,
-            left: parking.left?
-          }
-
-          parking_history << JSON.parse(parking_ticket.to_json)
-        end
-
-        render json: parking_history
+        render_json(
+          { message: response[:message], data: response[:data] },
+          response[:http_status]
+        )
       end
 
       private
@@ -66,7 +48,7 @@ module Api
       end
 
       def render_json(message, http_status)
-        render json: { message: message }, status: http_status
+        render json: message, status: http_status
       end
     end
   end

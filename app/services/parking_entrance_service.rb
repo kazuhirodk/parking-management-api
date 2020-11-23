@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ParkingEntranceService
   def initialize(vehicle_params = {})
     @vehicle = CreateVehicleService.new(vehicle_params).create
