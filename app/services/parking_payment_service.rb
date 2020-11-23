@@ -22,7 +22,7 @@ class ParkingPaymentService
   end
 
   def already_paid?
-    @parking.paid? || @parking.left?
+    @parking.parking_paid?
   end
 
   def invalid_ticket_response(data = {})
